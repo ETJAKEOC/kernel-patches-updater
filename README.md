@@ -1,19 +1,11 @@
 # Kernel patches updater.
 
-This is a simple project, starting as a failed bash script from ChatGPT.
+This is a simple rust binary that when executed, will look inside of `applied-patches`
+for patches that you have cherry-picked from `sirlucjan/kernel-patches` (provided here
+inside `git`). The structure is setup to be compatible with the TKG kernel, with
+slight modifications. Every patch must end in `.patch`, but you can just drop the
+patches in the `applied-patches` repo, like you would `linux<ver>-tkg-userpatches`.
 
-The goal here, is for the user to put cherry-picked patches in `applied-patches`
-and the script will scan through the `git` folder (A link to sirlucjan/kernel-patches)
-for the applied patches, and it will output all patches matching that patch name
-in a new folder `updated-patches`.
-
-Insinde `updated-patches` will be the `<k-ver>` folder for the verison the user selected.
-Inside the `<k-ver>` directory, will exist the patches parent folder, for example;
-
-`applied-patches/0001-amd-6.9-merge-changes-from-dev-tree.patch` would be the inputed patch file to search for.
-`git/6.9-rc/amd-pstate-patches/0001-amd-6.9-merge-changes-from-dev-tree.patch` would copy to `updated-patches/6.9-rc/amd-pstate-patches/0001-amd-6.9-merge-changes-from-dev-tree.patch`
-`git/6.9-rc/amd-pstate-patches-v2/0001-amd-6.9-merge-changes-from-dev-tree.patch` would copy to `updated-patches/6.9-rc/amd-pstate-patches-v2/0001-amd-6.9-merge-changes-from-dev-tree.patch`
-
-etc. etc. This is the main goal of the project.
-
-Any questions, please feel free to ask. This project does not need to remain in bash, it can be remade in whatever language would accomplish this task easiest.
+This will then crawl the `sirlucjan/kernel-patches` repo for the applied patches
+and copy all patches related to the inputed patches, including all versions
+in their appropriate folders, allowing you to cherry-pick your patches accordingly.
